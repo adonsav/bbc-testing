@@ -5,12 +5,12 @@
   [
     {
       "browserName": "firefox",
-      "maxInstances": 5,
+      "maxInstances": 2,
       "seleniumProtocol": "WebDriver"
     },
     {
       "browserName": "chrome",
-      "maxInstances": 5,
+      "maxInstances": 2,
       "seleniumProtocol": "WebDriver"
     }
   ],
