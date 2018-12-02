@@ -11,7 +11,7 @@ import java.net.MalformedURLException;
 
 public class TestBase {
 
-    protected WebDriver driver;
+    private WebDriver driver;
 
     /**
      * This method is called before any test case starts running and initializes the grid's hub and nodes.
@@ -48,7 +48,7 @@ public class TestBase {
      * @param browser The browser we want to run the test on (e.g. chrome).
      * @param node    The remote node url (e.g. http://localhost:5555/wd/hub).
      */
-    @BeforeTest(alwaysRun = true)
+    @BeforeTest
     @Parameters({"os", "browser", "node"})
     public void testInitialize(String os, String browser, String node) throws MalformedURLException {
 
@@ -60,14 +60,14 @@ public class TestBase {
      * This method is called after all test cases have been executed and closes all browser windows and safely ends the
      * session.
      */
-    @AfterTest(alwaysRun = true)
+    @AfterTest
     public void testTeardown() {
 
         System.out.println("Got inside 'testTeardown'");
         if (driver != null) {
 
             driver.quit();
-            
+
         }
 
     }
