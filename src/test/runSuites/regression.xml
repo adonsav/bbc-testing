@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="RegressionTests" parallel="tests" verbose="1">
+
+    <parameter name="os" value="mac"/>
+    <parameter name="node" value="http://localhost:5555/wd/hub"/>
+
+    <test name="ChromeTests">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="base.TestBase"/>
+            <class name="runner.TestRunner"/>
+        </classes>
+    </test>
+
+    <test name="FirefoxTests">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="base.TestBase"/>
+            <class name="runner.TestRunner"/>
+        </classes>
+    </test>
+
+</suite>
