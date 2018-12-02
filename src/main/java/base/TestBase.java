@@ -8,10 +8,12 @@ import org.testng.annotations.Parameters;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestBase {
 
-    private WebDriver driver;
+    private List<WebDriver> driverInstances = new ArrayList<>();
 
     /**
      * This method is called before any test case starts running and initializes the grid's hub and nodes.
@@ -52,7 +54,7 @@ public class TestBase {
     @Parameters({"os", "browser", "node"})
     public void testInitialize(String os, String browser, String node) throws MalformedURLException {
 
-        driver = DriverFactory.buildDriver(os, browser, node);
+        driverInstances.add(DriverFactory.buildDriver(os, browser, node));
 
     }
 
@@ -64,9 +66,14 @@ public class TestBase {
     public void testTeardown() {
 
         System.out.println("Got inside 'testTeardown'");
-        if (driver != null) {
+        if (driverInstances.size() != 0) {
 
-            driver.quit();
+            for (WebDriver driverInstance :
+                    driverInstances) {
+
+                driverInstance.quit();
+
+            }
 
         }
 
