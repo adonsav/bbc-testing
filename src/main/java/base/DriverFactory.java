@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 public class DriverFactory {
 
     public static String baseUrl = "http://www.bbc.com";
+    public static WebDriver driver;
 
     /**
      * This method is called one time for every 'test' tag we have defined in 'regression.xml' file, in order to build
@@ -26,8 +27,6 @@ public class DriverFactory {
     static WebDriver buildDriver(String os, String browser, String node) throws MalformedURLException {
 
         System.out.println("Got inside 'buildDriver'\n");
-
-        WebDriver driver;
 
         if (browser.equalsIgnoreCase("chrome")) {
 
