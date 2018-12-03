@@ -1,19 +1,22 @@
 package base;
 
+import atu.testrecorder.ATUTestRecorder;
+import atu.testrecorder.exceptions.ATUTestRecorderException;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Parameters;
+import org.testng.annotations.*;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class TestBase {
 
     private List<WebDriver> driverInstances = new ArrayList<>();
+    private ATUTestRecorder recorder;
 
     /**
      * This method is called before any test case starts running and initializes the grid's hub and nodes.
@@ -40,6 +43,19 @@ public class TestBase {
             e.printStackTrace();
 
         }
+
+    }
+
+    @BeforeSuite
+    public void startRecording() throws ATUTestRecorderException {
+
+        DateFormat dateFormat = new SimpleDateFormat("y-m-d H-M-S");
+        Date date = new Date();
+
+        recorder = new ATUTestRecorder(
+                "src/test/testVideos", "testRun-" + dateFormat.format(date), false);
+        recorder.start();
+
     }
 
     /**
@@ -66,6 +82,7 @@ public class TestBase {
     public void testTeardown() {
 
         System.out.println("Got inside 'testTeardown'");
+
         if (driverInstances.size() != 0) {
 
             for (WebDriver driverInstance :
@@ -76,6 +93,13 @@ public class TestBase {
             }
 
         }
+
+    }
+
+    @AfterSuite
+    public void stopRecording() throws ATUTestRecorderException {
+
+        recorder.stop();
 
     }
 
